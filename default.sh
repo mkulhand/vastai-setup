@@ -161,23 +161,4 @@ fi
 
 ### Custom -> setup config
 
-CONFIG_FILE="/workspace/config.zip"
-DEST_DIR="/workspace/stable-diffusion-webui-force"
-
-if [[ -f "$CONFIG_FILE" ]]; then
-    echo "Found $CONFIG_FILE. Proceeding with cleanup and extraction..."
-
-    # Remove existing directories
-    rm -rf "$DEST_DIR/embeddings"
-    rm -rf "$DEST_DIR/models"
-    rm -rf "$DEST_DIR/extensions"
-
-    echo "Old directories removed."
-
-    # Unzip into the destination directory
-    unzip -o "$CONFIG_FILE" -d "$DEST_DIR"
-
-    echo "Extraction complete."
-else
-    echo "$CONFIG_FILE not found. Skipping operations."
-fi
+git clone https://github.com/Bing-su/adetailer.git /workspace/stable-diffusion-webui-forge

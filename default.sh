@@ -3,9 +3,11 @@
 source /venv/main/bin/activate
 FORGE_DIR=${WORKSPACE}/stable-diffusion-webui-forge
 
-git clone https://github.com/Bing-su/adetailer.git ${WORKSPACE}/stable-diffusion-webui-forge/extensions/adetailer
-
 # Packages are installed after nodes so we can fix them...
+
+EXTENSIONS=(
+    "https://github.com/Bing-su/adetailer.git"
+)
 
 APT_PACKAGES=(
     #"package-1"

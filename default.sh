@@ -3,6 +3,8 @@
 source /venv/main/bin/activate
 FORGE_DIR=${WORKSPACE}/stable-diffusion-webui-forge
 
+git clone https://github.com/Bing-su/adetailer.git ${WORKSPACE}/stable-diffusion-webui-forge/extensions
+
 # Packages are installed after nodes so we can fix them...
 
 APT_PACKAGES=(
@@ -158,7 +160,3 @@ function provisioning_download() {
 if [[ ! -f /.noprovisioning ]]; then
     provisioning_start
 fi
-
-### Custom -> setup config
-
-git clone https://github.com/Bing-su/adetailer.git /workspace/stable-diffusion-webui-forge

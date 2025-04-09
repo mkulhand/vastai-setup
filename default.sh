@@ -3,6 +3,12 @@
 source /venv/main/bin/activate
 FORGE_DIR=${WORKSPACE}/stable-diffusion-webui-forge
 
+wget "https://github.com/Backblaze/B2_Command_Line_Tool/releases/latest/download/b2-linux" -O b2-linux
+chmod +x b2-linux
+
+./b2-linux sync --threads 25 b2://stable-models/models $FORGE_DIR/models
+./b2-linux sync --threads 25 b2://stable-models/embeddings $FORGE_DIR/embeddings
+
 # Packages are installed after nodes so we can fix them...
 
 EXTENSIONS=(

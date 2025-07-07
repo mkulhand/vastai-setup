@@ -31,7 +31,7 @@ apt-get update && apt-get install -y libgl1 libglib2.0-0
 python3 -m pip install -r $COMFYUI_DIR/requirements.txt
 
 # Install custom nodes
-rm ${COMFYUI_DIR}/custom_nodes/*
+rm -rf ${COMFYUI_DIR}/custom_nodes/*
 cd ${COMFYUI_DIR}/custom_nodes
 git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager \
     && git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite \

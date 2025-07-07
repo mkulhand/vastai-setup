@@ -48,7 +48,7 @@ python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/comfyui-manager/requiremen
     && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-VideoHelperSuite/requirements.txt \
     && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-KJNodes/requirements.txt \
     && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI_essentials/requirements.txt \
-    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Frame-Interpolation/requirements-with-cupy.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Frame-Interpolation/requirements-no-cupy.txt \
     && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-GGUF/requirements.txt \
     && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-WanVideoWrapper/requirements.txt
 

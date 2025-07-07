@@ -3,19 +3,76 @@
 source /venv/main/bin/activate
 COMFYUI_DIR=${WORKSPACE}/ComfyUI
 
-cd $COMFYUI_DIR/models/diffusion_models/
-wget https://huggingface.co/city96/Wan2.1-I2V-14B-480P-gguf/resolve/main/wan2.1-i2v-14b-480p-Q8_0.gguf
-wget https://huggingface.co/city96/Wan2.1-I2V-14B-720P-gguf/resolve/main/wan2.1-i2v-14b-720p-Q8_0.gguf
-wget https://huggingface.co/city96/Wan2.1-T2V-14B-gguf/resolve/main/wan2.1-t2v-14b-Q8_0.gguf
+wget "https://huggingface.co/city96/Wan2.1-I2V-14B-480P-gguf/resolve/main/wan2.1-i2v-14b-480p-Q8_0.gguf" -O $COMFYUI_DIR/models/diffusion_models/wan2.1-i2v-14b-480p-Q8_0.gguf
+wget "https://huggingface.co/city96/Wan2.1-I2V-14B-720P-gguf/resolve/main/wan2.1-i2v-14b-720p-Q8_0.gguf" -O $COMFYUI_DIR/models/diffusion_models/wan2.1-i2v-14b-720p-Q8_0.gguf
+wget "https://huggingface.co/city96/Wan2.1-T2V-14B-gguf/resolve/main/wan2.1-t2v-14b-Q8_0.gguf" -O $COMFYUI_DIR/models/diffusion_models/wan2.1-t2v-14b-Q8_0.gguf
+wget "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors" -O $COMFYUI_DIR/models/text_encoders/umt5_xxl_fp16.safetensors
+wget "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors" -O $COMFYUI_DIR/models/clip_vision/clip_vision_h.safetensors
+wget "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors" -O $COMFYUI_DIR/models/vae/wan_2.1_vae.safetensors
 
-cd $COMFYUI_DIR/models/text_encoders
-wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors
 
-cd $COMFYUI_DIR/models/clip_vision/
-wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors
+echo "Sage, Triton and Pytorch Auto-Installer."
 
-cd $COMFYUI_DIR/models/vae/
-wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors
+INCLUDE_LIBS_URL="https://github.com/woct0rdho/triton-windows/releases/download/v3.0.0-windows.post1/python_3.12.7_include_libs.zip"
+
+export PYTHONUTF8=1
+export PYTHONIOENCODING=utf-8
+PYTHON="python3"
+
+echo "Installing Visual Studio Build Tools - skipped on Linux/macOS"
+
+echo "Installing Triton"
+$PYTHON -s -m pip install -U --pre triton
+
+FILE_NAME=$(basename "$INCLUDE_LIBS_URL")
+
+echo "Downloading Python include/libs from URL"
+curl -L -o "$FILE_NAME" "$INCLUDE_LIBS_URL"
+
+echo "Extracting Python include/libs using unzip"
+unzip -o "$FILE_NAME" -d python_embeded
+
+echo "Installing SageAttention"
+$PYTHON -s -m pip install sageattention==1.0.6
+
+
+echo "Installing Custom Extensions"
+$COMFYUI_DIR ComfyUI/custom_nodes || exit 1
+git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager
+git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite
+git clone https://github.com/kijai/ComfyUI-KJNodes
+git clone https://github.com/cubiq/ComfyUI_essentials
+git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation
+git clone https://github.com/pollockjj/ComfyUI-MultiGPU
+git clone https://github.com/asagi4/ComfyUI-Adaptive-Guidance
+git clone https://github.com/city96/ComfyUI-GGUF
+git clone https://github.com/kijai/ComfyUI-WanVideoWrapper
+
+echo "Installing Custom Extensions Requirements"
+cd ../..
+python3 -m pip install -r $COMFYUI_DIR/custom_nodes/comfyui-manager/requirements.txt
+python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-VideoHelperSuite/requirements.txt
+python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-KJNodes/requirements.txt
+python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI_essentials/requirements.txt
+python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-Frame-Interpolation/requirements-with-cupy.txt
+python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-GGUF/requirements.txt
+python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-WanVideoWrapper/requirements.txt
+
+echo "Done."
+
+
+python3 -m pip install torch==2.8.0.dev20250317+cu128 --index-url https://download.pytorch.org/whl/nightly/cu128 --force-reinstall
+
+python3 -m pip install torchaudio torchvision --index-url https://download.pytorch.org/whl/nightly/cu128 --force-reinstall
+
+sudo apt update
+sudo apt install -y ninja-build git cmake build-essential python3-dev
+git clone https://github.com/facebookresearch/xformers.git
+cd xformers
+pip install -r requirements.txt
+pip install ninja wheel cmake
+git submodule update --init --recursive
+/venv/main/bin/python -m pip install -e .
 
 # Packages are installed after nodes so we can fix them...
 

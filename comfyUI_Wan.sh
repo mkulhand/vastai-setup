@@ -31,7 +31,7 @@ apt-get update && apt-get install -y libgl1 libglib2.0-0
 python3 -m pip install -r $COMFYUI_DIR/requirements.txt
 
 # Install custom nodes
-cd $COMFYUI_DIR/custom_nodes
+cd ${COMFYUI_DIR}/custom_nodes
 git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager \
     && git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite \
     && git clone https://github.com/kijai/ComfyUI-KJNodes \
@@ -42,14 +42,14 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager \
     && git clone https://github.com/city96/ComfyUI-GGUF \
     && git clone https://github.com/kijai/ComfyUI-WanVideoWrapper
 
-cd /workspace
-python3 -m pip install -r $COMFYUI_DIR/custom_nodes/comfyui-manager/requirements.txt \
-    && python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-VideoHelperSuite/requirements.txt \
-    && python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-KJNodes/requirements.txt \
-    && python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI_essentials/requirements.txt \
-    && python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-Frame-Interpolation/requirements-with-cupy.txt \
-    && python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-GGUF/requirements.txt \
-    && python3 -m pip install -r $COMFYUI_DIR/custom_nodes/ComfyUI-WanVideoWrapper/requirements.txt
+cd $WORKSPACE
+python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/comfyui-manager/requirements.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-VideoHelperSuite/requirements.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-KJNodes/requirements.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI_essentials/requirements.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Frame-Interpolation/requirements-with-cupy.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-GGUF/requirements.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-WanVideoWrapper/requirements.txt
 
 # Build xformers
 git clone https://github.com/facebookresearch/xformers.git \
@@ -58,6 +58,20 @@ git clone https://github.com/facebookresearch/xformers.git \
     && pip install ninja wheel cmake \
     && git submodule update --init --recursive \
     && FORCE_CUDA=1 pip install -e .
+
+cd ${COMFYUI_DIR}/models/diffusion_models/
+wget https://huggingface.co/city96/Wan2.1-I2V-14B-480P-gguf/resolve/main/wan2.1-i2v-14b-480p-Q8_0.gguf
+#wget https://huggingface.co/city96/Wan2.1-I2V-14B-720P-gguf/resolve/main/wan2.1-i2v-14b-720p-Q8_0.gguf
+wget https://huggingface.co/city96/Wan2.1-T2V-14B-gguf/resolve/main/wan2.1-t2v-14b-Q8_0.gguf
+
+cd ${COMFYUI_DIR}/models/text_encoders
+wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors
+
+cd ${COMFYUI_DIR}/models/clip_vision/
+wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors
+
+cd ${COMFYUI_DIR}/models/vae/
+wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors
 
 # Packages are installed after nodes so we can fix them...
 

@@ -74,6 +74,14 @@ wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/sp
 cd ${COMFYUI_DIR}/models/vae/
 wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors
 
+supervisorctl stop comfyui
+
+cd $WORKSPACE
+wget https://github.com/SaladTechnologies/comfyui-api/releases/download/1.9.1/comfyui-api
+chmod +x comfyui-api
+
+HOST=127.0.0.1 CMD=/opt/supervisor-scripts/comfyui.sh COMFYUI_PORT_HOST=18188 BASE='' COMFY_HOME=/workspace/ComfyUI ./comfyui-api
+
 # Packages are installed after nodes so we can fix them...
 
 APT_PACKAGES=(

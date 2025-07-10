@@ -78,9 +78,6 @@ cd $WORKSPACE
 wget https://github.com/SaladTechnologies/comfyui-api/releases/download/1.9.1/comfyui-api
 chmod +x comfyui-api
 
-supervisorctl stop comfyui
-HOST=127.0.0.1 CMD=/opt/supervisor-scripts/comfyui.sh COMFYUI_PORT_HOST=18188 BASE='' COMFY_HOME=/workspace/ComfyUI ./comfyui-api
-
 # Packages are installed after nodes so we can fix them...
 
 APT_PACKAGES=(

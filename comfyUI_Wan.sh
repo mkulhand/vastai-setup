@@ -10,6 +10,7 @@ apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone ComfyUI
+rm -rf $COMFYUI_DIR
 git clone https://github.com/comfyanonymous/ComfyUI.git
 
 # Install Python packages

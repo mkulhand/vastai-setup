@@ -7,6 +7,7 @@ wget https://raw.githubusercontent.com/mkulhand/vastai-setup/refs/heads/main/com
 wget https://raw.githubusercontent.com/mkulhand/vastai-setup/refs/heads/main/comfy.conf -O /etc/supervisor/conf.d/comfy.conf
 
 chmod +x /opt/supervisor-scripts/comfy.sh
+ln -s /bin/python3 /bin/python
 
 # Install system dependencies
 apt-get update && apt-get install -y \

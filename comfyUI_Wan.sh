@@ -10,8 +10,7 @@ apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone ComfyUI
-rm -rf $COMFYUI_DIR
-git clone https://github.com/comfyanonymous/ComfyUI.git
+git clone --branch v0.3.44 --single-branch https://github.com/comfyanonymous/ComfyUI.git
 
 # Install Python packages
 python3 -m pip install --upgrade pip \

@@ -3,6 +3,9 @@
 source /venv/main/bin/activate
 COMFYUI_DIR=${WORKSPACE}/ComfyUI
 
+wget https://raw.githubusercontent.com/mkulhand/vastai-setup/refs/heads/main/comfy.sh -O /opt/supervisor-scripts/comfy.sh
+wget https://raw.githubusercontent.com/mkulhand/vastai-setup/refs/heads/main/comfy.conf -O /etc/supervisor/conf.d/comfy.conf
+
 # Install system dependencies
 apt-get update && apt-get install -y \
     python3 python3-pip python3-venv python3-dev \

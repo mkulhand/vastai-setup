@@ -8,6 +8,7 @@ wget https://raw.githubusercontent.com/mkulhand/vastai-setup/refs/heads/main/com
 
 chmod +x /opt/supervisor-scripts/comfy.sh
 ln -s /bin/python3 /bin/python
+mkdir /workspace/outputs
 
 # Install system dependencies
 apt-get update && apt-get install -y \

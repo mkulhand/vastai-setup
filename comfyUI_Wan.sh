@@ -69,6 +69,11 @@ git clone https://github.com/facebookresearch/xformers.git \
     && git submodule update --init --recursive \
     && FORCE_CUDA=1 pip install -e .
 
+wget "https://github.com/Backblaze/B2_Command_Line_Tool/releases/latest/download/b2-linux" -O b2-linux
+chmod +x b2-linux
+
+./b2-linux sync --threads 25 b2://stable-models/comfy/loras ${COMFYUI_DIR}/models/loras/
+
 cd ${COMFYUI_DIR}/models/diffusion_models/
 #wget https://huggingface.co/city96/Wan2.1-I2V-14B-480P-gguf/resolve/main/wan2.1-i2v-14b-480p-Q8_0.gguf
 wget https://huggingface.co/city96/Wan2.1-I2V-14B-720P-gguf/resolve/main/wan2.1-i2v-14b-720p-Q8_0.gguf

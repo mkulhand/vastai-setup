@@ -15,7 +15,8 @@ rm -rf $FORGE_DIR/embeddings/*
 # Packages are installed after nodes so we can fix them...
 
 EXTENSIONS=(
-    "https://github.com/Bing-su/adetailer.git"
+    "https://github.com/Bing-su/adetailer.git",
+    "https://github.com/picobyte/stable-diffusion-webui-wd14-tagger"
 )
 
 APT_PACKAGES=(

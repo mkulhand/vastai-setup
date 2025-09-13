@@ -50,7 +50,7 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager \
     && git clone https://github.com/pollockjj/ComfyUI-MultiGPU \
     && git clone https://github.com/asagi4/ComfyUI-Adaptive-Guidance \
     && git clone https://github.com/city96/ComfyUI-GGUF \
-    && git clone https://github.com/kijai/ComfyUI-WanVideoWrapper
+    && git clone https://github.com/kijai/ComfyUI-WanVideoWrapper \
     && git clone https://github.com/rgthree/rgthree-comfy.git
 
 cd $WORKSPACE

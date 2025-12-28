@@ -51,7 +51,11 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager \
     && git clone https://github.com/asagi4/ComfyUI-Adaptive-Guidance \
     && git clone https://github.com/city96/ComfyUI-GGUF \
     && git clone https://github.com/kijai/ComfyUI-WanVideoWrapper \
-    && git clone https://github.com/rgthree/rgthree-comfy.git
+    && git clone https://github.com/princepainter/ComfyUI-PainterI2V/tree/main \
+    && git clone https://github.com/filliptm/ComfyUI_Fill-Nodes \
+    && git clone https://github.com/HenkDz/rgthree-comfy
+    #&& git clone https://github.com/rgthree/rgthree-comfy.git \
+    
 
 cd $WORKSPACE
 python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/comfyui-manager/requirements.txt \
@@ -60,7 +64,9 @@ python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/comfyui-manager/requiremen
     && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI_essentials/requirements.txt \
     && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Frame-Interpolation/requirements-no-cupy.txt \
     && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-GGUF/requirements.txt \
-    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-WanVideoWrapper/requirements.txt
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-WanVideoWrapper/requirements.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI_Fill-Nodes/requirements.txt \
+    && python3 -m pip install -r ${COMFYUI_DIR}/custom_nodes/rgthree-comfy/requirements.txt
 
 # Build xformers
 git clone https://github.com/facebookresearch/xformers.git \

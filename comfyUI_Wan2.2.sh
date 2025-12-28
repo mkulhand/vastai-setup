@@ -38,6 +38,7 @@ apt-get update && apt-get install -y libgl1 libglib2.0-0
 
 # Install ComfyUI requirements
 python3 -m pip install -r $COMFYUI_DIR/requirements.txt
+pip install sageattention onnx onnxruntime
 
 # Install custom nodes
 rm -rf ${COMFYUI_DIR}/custom_nodes/*

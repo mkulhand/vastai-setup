@@ -53,7 +53,8 @@ git clone https://github.com/ltdrdata/ComfyUI-Manager comfyui-manager \
     && git clone https://github.com/kijai/ComfyUI-WanVideoWrapper \
     && git clone https://github.com/princepainter/ComfyUI-PainterI2V \
     && git clone https://github.com/filliptm/ComfyUI_Fill-Nodes \
-    && git clone https://github.com/HenkDz/rgthree-comfy
+    && git clone https://github.com/HenkDz/rgthree-comfy \
+    && git clone https://github.com/ashtar1984/comfyui-find-perfect-resolution
     #&& git clone https://github.com/rgthree/rgthree-comfy.git \
     
 

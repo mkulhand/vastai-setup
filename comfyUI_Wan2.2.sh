@@ -98,6 +98,7 @@ wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/sp
 
 cd ${COMFYUI_DIR}/models/vae/
 wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors
+wget https://huggingface.co/wangkanai/wan22-vae/resolve/main/vae/wan/wan22-vae.safetensors
 
 cd $WORKSPACE
 wget https://github.com/SaladTechnologies/comfyui-api/releases/download/1.9.1/comfyui-api

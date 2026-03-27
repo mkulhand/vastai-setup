@@ -92,6 +92,8 @@ wget https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan21_T2V_14B_ligh
 
 cd ${COMFYUI_DIR}/models/text_encoders
 wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors
+wget https://huggingface.co/jiangchengchengNLP/qwen3-4b-fp8-scaled/resolve/main/qwen3_4b_fp8_scaled.safetensors
+
 
 cd ${COMFYUI_DIR}/models/clip_vision/
 wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors
@@ -99,9 +101,12 @@ wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/sp
 cd ${COMFYUI_DIR}/models/vae/
 wget https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors
 wget https://huggingface.co/wangkanai/wan22-vae/resolve/main/vae/wan/wan22-vae.safetensors
+wget https://huggingface.co/lovis93/testllm/resolve/ed9cf1af7465cebca4649157f118e331cf2a084f/ae.safetensors
 
 cd $WORKSPACE
-wget https://github.com/SaladTechnologies/comfyui-api/releases/download/1.9.1/comfyui-api
+wget https://huggingface.co/jiangchengchengNLP/qwen3-4b-fp8-scaled
+
+
 chmod +x comfyui-api
 
 supervisorctl reread

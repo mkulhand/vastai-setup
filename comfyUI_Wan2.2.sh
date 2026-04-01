@@ -106,6 +106,7 @@ wget https://huggingface.co/lovis93/testllm/resolve/ed9cf1af7465cebca4649157f118
 cd $WORKSPACE
 wget https://huggingface.co/jiangchengchengNLP/qwen3-4b-fp8-scaled
 
+wget https://github.com/SaladTechnologies/comfyui-api/releases/download/1.17.1/comfyui-api
 
 chmod +x comfyui-api
 

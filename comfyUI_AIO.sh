@@ -140,6 +140,8 @@ done
 
 cd "${WORKSPACE}"
 
+wget https://github.com/SaladTechnologies/comfyui-api/releases/download/1.17.1/comfyui-api
+
 chmod +x comfyui-api
 
 supervisorctl reread

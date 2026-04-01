@@ -52,12 +52,11 @@ cd ${COMFYUI_DIR}
 # Install Python packages (uv pip targets the active /venv/main)
 uv pip install --upgrade pip \
     && uv pip install \
-        torch==2.8.0.dev20250317+cu128 \
-        --index-url https://download.pytorch.org/whl/nightly/cu128 \
+        torch --index-url https://download.pytorch.org/whl/cu128 \
     && uv pip install \
         torchaudio \
         torchvision \
-        --index-url https://download.pytorch.org/whl/nightly/cu128 \
+        --index-url https://download.pytorch.org/whl/cu128 \
     && uv pip install -U --pre triton \
     && uv pip install sageattention==1.0.6
 

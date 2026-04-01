@@ -32,16 +32,23 @@ unzip -q /tmp/awscliv2.zip -d /tmp
 /tmp/aws/install --update -i /usr/local/aws-cli -b /usr/local/bin
 rm -rf /tmp/aws /tmp/awscliv2.zip
 
-# MinIO (S3-compatible): full API URL in MINIO_ENDPOINT or S3_ENDPOINT (include :port if not 80/443, e.g. http://host:9000); credentials from AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY; then: aws --profile minio s3 ls
-_minio_endpoint="${S3_ENDPOINT:-}"
+# MinIO / S3-compatible — default AWS CLI config (only backend we use here).
+# Env: S3_ENDPOINT or MINIO_ENDPOINT (e.g. http://host:9000), AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY.
+# Optional: MINIO_REGION (default us-east-1), MINIO_ADDRESSING_STYLE path|virtual (default path, better for IP:port).
+_minio_endpoint="${S3_ENDPOINT:-${MINIO_ENDPOINT:-}}"
 _minio_key="${AWS_ACCESS_KEY_ID:-}"
 _minio_secret="${AWS_SECRET_ACCESS_KEY:-}"
 if [[ -n "${_minio_endpoint}" && -n "${_minio_key}" && -n "${_minio_secret}" ]]; then
-    aws configure set aws_access_key_id "${_minio_key}" --profile minio
-    aws configure set aws_secret_access_key "${_minio_secret}" --profile minio
-    aws configure set region "${MINIO_REGION:-us-east-1}" --profile minio
-    aws configure set s3.endpoint_url "${_minio_endpoint}" --profile minio
-    aws configure set s3.signature_version s3v4 --profile minio
+    aws configure set aws_access_key_id "${_minio_key}"
+    aws configure set aws_secret_access_key "${_minio_secret}"
+    aws configure set region "${MINIO_REGION:-us-east-1}"
+    aws configure set output json
+    aws configure set s3.endpoint_url "${_minio_endpoint}"
+    aws configure set s3.signature_version s3v4
+    aws configure set s3.addressing_style "${MINIO_ADDRESSING_STYLE:-path}"
+    if [[ -n "${MINIO_CA_BUNDLE:-}" ]]; then
+        aws configure set ca_bundle "${MINIO_CA_BUNDLE}"
+    fi
 fi
 
 # Clone ComfyUI
@@ -134,7 +141,7 @@ for _pair in "${_minio_model_sync[@]}"; do
     _bucket="${_pair%%:*}"
     _subdir="${_pair#*:}"
     mkdir -p "${COMFYUI_DIR}/models/${_subdir}"
-    aws --profile minio s3 sync "s3://${_bucket}/" "${COMFYUI_DIR}/models/${_subdir}/"
+    aws s3 sync "s3://${_bucket}/" "${COMFYUI_DIR}/models/${_subdir}/"
 done
 
 cd "${WORKSPACE}"

@@ -34,21 +34,18 @@ rm -rf /tmp/aws /tmp/awscliv2.zip
 
 # MinIO / S3-compatible — default AWS CLI config (only backend we use here).
 # Env: S3_ENDPOINT or MINIO_ENDPOINT (e.g. http://host:9000), AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY.
-# Optional: MINIO_REGION (default us-east-1), MINIO_ADDRESSING_STYLE path|virtual (default path, better for IP:port).
+# Region / addressing_style fixed for MinIO + SigV4 (no extra env vars needed).
 _minio_endpoint="${S3_ENDPOINT:-${MINIO_ENDPOINT:-}}"
 _minio_key="${AWS_ACCESS_KEY_ID:-}"
 _minio_secret="${AWS_SECRET_ACCESS_KEY:-}"
 if [[ -n "${_minio_endpoint}" && -n "${_minio_key}" && -n "${_minio_secret}" ]]; then
     aws configure set aws_access_key_id "${_minio_key}"
     aws configure set aws_secret_access_key "${_minio_secret}"
-    aws configure set region "${MINIO_REGION:-us-east-1}"
+    aws configure set region us-east-1
     aws configure set output json
     aws configure set s3.endpoint_url "${_minio_endpoint}"
     aws configure set s3.signature_version s3v4
-    aws configure set s3.addressing_style "${MINIO_ADDRESSING_STYLE:-path}"
-    if [[ -n "${MINIO_CA_BUNDLE:-}" ]]; then
-        aws configure set ca_bundle "${MINIO_CA_BUNDLE}"
-    fi
+    aws configure set s3.addressing_style path
 fi
 
 # Clone ComfyUI
@@ -101,6 +98,8 @@ git clone "https://oauth2:${GITHUB_TOKEN}@github.com/ghazette/ComfyUI-Yamete-Pac
     && git clone https://github.com/ashtar1984/comfyui-find-perfect-resolution \
     && git clone https://github.com/ClownsharkBatwing/RES4LYF \
     && git clone https://github.com/ghazette/ComfyUI-WD14-Tagger \
+    && git clone https://github.com/ssitu/ComfyUI_UltimateSDUpscale \
+    && git clone https://github.com/ltdrdata/ComfyUI-Impact-Subpack \
     && git clone https://github.com/ltdrdata/ComfyUI-Impact-Pack
     
 
@@ -117,8 +116,8 @@ uv pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Manager/requirements.txt \
     && uv pip install -r ${COMFYUI_DIR}/custom_nodes/RES4LYF/requirements.txt \
     && uv pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-WD14-Tagger/requirements.txt \
     && uv pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Yamete-Pack/requirements.txt \
-    && uv pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Impact-Pack/requirements.txt
-
+    && uv pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Impact-Pack/requirements.txt \
+    && uv pip install -r ${COMFYUI_DIR}/custom_nodes/ComfyUI-Impact-Subpack/requirements.txt
 # Build xformers
 git clone https://github.com/facebookresearch/xformers.git \
     && cd xformers \

@@ -1,0 +1,31 @@
+# Boilerplate for comfy-aio image (see Dockerfile / ./build.sh).
+# Prereq: NVIDIA Container Toolkit + Docker Compose v2.
+#
+#   cp .env.example .env   # then fill GITHUB_TOKEN, MinIO, etc.
+#   ./build.sh             # image comfy-aio:cuda128 (token via BuildKit secret)
+#   docker compose up -d
+#
+# Models / outputs persist in named volumes. Set MINIO_SYNC=0 in .env after first sync if you want.
+
+services:
+  comfy:
+    image: ${COMFY_IMAGE:-comfy-aio:cuda128}
+    container_name: ${COMFY_CONTAINER_NAME:-comfy-aio}
+    env_file:
+      - .env
+    environment:
+      # 1 = sync at start (incremental). 0 = skip (volume already has models). Override in .env.
+      MINIO_SYNC: ${MINIO_SYNC:-1}
+    ports:
+      - "${COMFY_PORT:-18188}:18188"
+      - 3000:3000
+    volumes:
+      - comfy_models:/workspace/ComfyUI/models
+      - comfy_outputs:/workspace/outputs
+    shm_size: "8gb"
+    # Requires NVIDIA Container Toolkit. If this key is rejected, use deploy.resources (see Docker GPU docs).
+    gpus: all
+
+volumes:
+  comfy_models:
+  comfy_outputs:
